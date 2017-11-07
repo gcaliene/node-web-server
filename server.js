@@ -2,6 +2,8 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 
+//process.env is an object that holds all of our environmental variables in key value pairs
+const port = process.env.PORT || 4000; ///The PORT is for heroku and 4000 is for the local server
 var app = express(); //there are no arguments going into express
 
 //we have to register partials so that we don't have to keep modifying certain parts like header and footer
@@ -70,6 +72,6 @@ app.get('/bad', (req, res) => {
   })
 })
 
-app.listen(4000, () => {
-  console.log('server is up on port 4000');
+app.listen(port, () => {
+  console.log(`The server is up on port ${port}`);
 });
