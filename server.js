@@ -26,11 +26,13 @@ app.use((req, res, next) => { //only when next is called like this next()
   next(); //without this then when you try to refresh the webpage, it will hang and not refresh
 });
 
-app.use((req, res, next) => {
-  res.render('maintenance.hbs');
-}); //this middleware is going to stop everything after it from executing because there is no next()
+//the code 3 lines below is for the maintenance code
+// app.use((req, res, next) => {
+//   res.render('maintenance.hbs');
+// }); //this middleware is going to stop everything after it from executing because there is no next()
 
 app.use(express.static(__dirname + '/public'));//moved dow n here because of maintenance middleware
+
 hbs.registerHelper('getCurrentYear', () => {
   return new Date().getFullYear();
 }); //first argument is the names of the function and the second is the function to run
@@ -64,6 +66,13 @@ app.get('/' ,(req,res) => {
     welcomeMessage: 'Welcome to my website',
     // currentYear: new Date().getFullYear()
   })
+});
+
+app.get('/portfolio', (req, res) => {
+    res.render('portfolio.hbs', {
+      pageTitle: 'Portfolio',
+      welcomeMessage:'My Portfolio Page'
+    })
 })
 
 app.get('/bad', (req, res) => {
